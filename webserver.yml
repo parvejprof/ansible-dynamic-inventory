@@ -1,0 +1,18 @@
+---
+- name: Ensure web server is installed
+  hosts: test01-*
+  tasks:
+    - name: Install httpd webserver
+      dnf:
+        name: httpd
+        state: present
+
+    - name: Add data to website
+      copy:
+        content: "Hello World - from Ansible"
+        dest: "/var/www/html/index.html"
+
+    - name: Start the httpd service
+      service:
+        name: httpd
+        state: started
